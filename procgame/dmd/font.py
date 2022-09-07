@@ -1,5 +1,5 @@
 import os
-from procgame.dmd import Animation, Frame
+from . import Animation, Frame
 from procgame import config
 from procgame import util
 

@@ -1,13 +1,12 @@
 __all__ = [
 	'animation',
 	'displaycontroller',
-	'dmd',
 	'font',
 	'layers',
 	'markup',
 	'transitions',
 	]
-from dmd import *
+from dmd_module import *
 from animation import *
 from font import *
 from layers import *

@@ -13,6 +13,19 @@ __all__ = [
 	'util',
 	'tools',
 	]
+from config import *
+from dmd import *
+from events import *
+from alphanumeric import *
+from auxport import *
+from game import *
+from highscore import *
+from lamps import *
+from modes import *
+from service import *
+from sound import *
+from util import *
+from tools import *
 
 from _version import __version_info__
 __version__ = '.'.join(map(str, __version_info__))

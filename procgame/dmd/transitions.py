@@ -1,4 +1,4 @@
-from dmd import *
+from dmd_module import *
 
 class LayerTransitionBase(object):
 	"""Transition base class."""

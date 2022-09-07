@@ -1,7 +1,7 @@
 __all__ = [
 	'ballsave',
 	'ballsearch',
-	'drops'
+	'drops',
 	'replay',
 	'scoredisplay',
 	'trough',

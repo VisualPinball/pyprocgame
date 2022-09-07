@@ -1,4 +1,4 @@
-from dmd import *
+from dmd_module import *
 
 class FrameLayer(Layer):
 	"""Displays a single frame."""

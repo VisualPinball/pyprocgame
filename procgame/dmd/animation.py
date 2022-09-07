@@ -1,3 +1,9 @@
+import sys
+import nt
+import clr
+sys.path.append(nt.getcwd())
+clr.AddReference("IronPython.SQLite.dll")
+
 import os
 import struct
 import yaml

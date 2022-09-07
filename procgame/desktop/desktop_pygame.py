@@ -18,29 +18,30 @@ except ImportError:
 	print "Error importing pygame; ignoring."
 	pygame = None
 
-if hasattr(ctypes.pythonapi, 'Py_InitModule4'):
-   Py_ssize_t = ctypes.c_int
-elif hasattr(ctypes.pythonapi, 'Py_InitModule4_64'):
-   Py_ssize_t = ctypes.c_int64
-else:
-   raise TypeError("Cannot determine type of Py_ssize_t")
-
-PyObject_AsWriteBuffer = ctypes.pythonapi.PyObject_AsWriteBuffer
-PyObject_AsWriteBuffer.restype = ctypes.c_int
-PyObject_AsWriteBuffer.argtypes = [ctypes.py_object,
-                                  ctypes.POINTER(ctypes.c_void_p),
-                                  ctypes.POINTER(Py_ssize_t)]
-
-def array(surface):
-   buffer_interface = surface.get_buffer()
-   address = ctypes.c_void_p()
-   size = Py_ssize_t()
-   PyObject_AsWriteBuffer(buffer_interface,
-                          ctypes.byref(address), ctypes.byref(size))
-   bytes = (ctypes.c_byte * size.value).from_address(address.value)
-   bytes.object = buffer_interface
-   return bytes
-
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# if hasattr(ctypes.pythonapi, 'Py_InitModule4'):
+#    Py_ssize_t = ctypes.c_int
+# elif hasattr(ctypes.pythonapi, 'Py_InitModule4_64'):
+#    Py_ssize_t = ctypes.c_int64
+# else:
+#    raise TypeError("Cannot determine type of Py_ssize_t")
+#
+# PyObject_AsWriteBuffer = ctypes.pythonapi.PyObject_AsWriteBuffer
+# PyObject_AsWriteBuffer.restype = ctypes.c_int
+# PyObject_AsWriteBuffer.argtypes = [ctypes.py_object,
+#                                   ctypes.POINTER(ctypes.c_void_p),
+#                                   ctypes.POINTER(Py_ssize_t)]
+#
+# def array(surface):
+#    buffer_interface = surface.get_buffer()
+#    address = ctypes.c_void_p()
+#    size = Py_ssize_t()
+#    PyObject_AsWriteBuffer(buffer_interface,
+#                           ctypes.byref(address), ctypes.byref(size))
+#    bytes = (ctypes.c_byte * size.value).from_address(address.value)
+#    bytes.object = buffer_interface
+#    return bytes
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 class Desktop():
 	"""The :class:`Desktop` class helps manage interaction with the desktop, providing both a windowed
@@ -116,35 +117,38 @@ class Desktop():
 		pygame.display.set_caption('Press CTRL-C to exit')
 
 	def draw(self, frame):
-		"""Draw the given :class:`~procgame.dmd.Frame` in the window."""
-		# Use adjustment to add a one pixel border around each dot, if
-		# the screen size is large enough to accomodate it.
-		if self.screen_multiplier >= 4:
-			adjustment = -1
-		else:
-			adjustment = 0
-
-		bytes_per_pixel = 4
-		y_offset = 128*bytes_per_pixel*self.screen_multiplier*self.screen_multiplier
-		x_offset = bytes_per_pixel*self.screen_multiplier
-
-		surface_array = array(self.screen)
-		
-		frame_string = frame.get_data()
-		
-		x = 0
-		y = 0
-		for dot in frame_string:
-			color_val = ord(dot)*16
-			index = y*y_offset + x*x_offset
-			surface_array[index:index+bytes_per_pixel] = (color_val,color_val,color_val,0)
-			x += 1
-			if x == 128:
-				x = 0
-				y += 1
-		del surface_array
-
-		pygame.display.update()
+		# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+		# """Draw the given :class:`~procgame.dmd.Frame` in the window."""
+		# # Use adjustment to add a one pixel border around each dot, if
+		# # the screen size is large enough to accomodate it.
+		# if self.screen_multiplier >= 4:
+		# 	adjustment = -1
+		# else:
+		# 	adjustment = 0
+		#
+		# bytes_per_pixel = 4
+		# y_offset = 128*bytes_per_pixel*self.screen_multiplier*self.screen_multiplier
+		# x_offset = bytes_per_pixel*self.screen_multiplier
+		#
+		# surface_array = array(self.screen)
+		#
+		# frame_string = frame.get_data()
+		#
+		# x = 0
+		# y = 0
+		# for dot in frame_string:
+		# 	color_val = ord(dot)*16
+		# 	index = y*y_offset + x*x_offset
+		# 	surface_array[index:index+bytes_per_pixel] = (color_val,color_val,color_val,0)
+		# 	x += 1
+		# 	if x == 128:
+		# 		x = 0
+		# 		y += 1
+		# del surface_array
+		#
+		# pygame.display.update()
+		# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+		pass
 	
 	def __str__(self):
 		return '<Desktop pygame>'
